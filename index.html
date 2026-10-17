@@ -1,210 +1,478 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Edirnbet Casino Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edirne 22 Palace — Lüks & VIP Otel</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#101014;--panel:#1c1b22;--gold:#e9bd65;--text:#f7f3eb}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:15px Arial,sans-serif}
-header{display:flex;align-items:center;justify-content:space-between;padding:18px 6%;background:#17161c;border-bottom:1px solid #34313a}
-.logo{font-size:26px;font-weight:900;color:white;text-decoration:none}
-.logo span{color:var(--gold)}
-select,input{background:#25232b;color:white;border:1px solid #49434b;border-radius:8px;padding:11px}
-.notice{text-align:center;background:#3c2b11;color:#ffe2a5;padding:10px;font-size:12px}
-.hero{padding:55px 8%;background:radial-gradient(ellipse at 80%,#69431d,#151419 55%)}
-.hero small{color:var(--gold);letter-spacing:3px}
-.hero h1{font-size:clamp(38px,7vw,64px);margin:18px 0}
-.hero p{color:#c2bdc5;line-height:1.7}
-.btn{display:inline-block;border:0;border-radius:8px;background:linear-gradient(110deg,#f6d58b,#c48b32);color:#21190c;font-weight:bold;padding:13px 18px;cursor:pointer;text-decoration:none}
-main{padding:35px 6%}
-.heading{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-nav{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}
-nav button{border:1px solid #45414a;background:#1b1a20;color:#eee;border-radius:20px;padding:10px 15px;cursor:pointer}
-nav button.active{border-color:var(--gold);color:var(--gold)}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
-.card{background:var(--panel);border:1px solid #302d35;border-radius:12px;overflow:hidden}
-.art{height:140px;display:grid;place-items:center;font-size:55px;background:radial-gradient(circle,#75502b,#201a22 70%)}
-.info{padding:12px;display:flex;justify-content:space-between;align-items:center;gap:7px}
-.info h3{font-size:13px;margin:0 0 6px}
-.info small{color:#aaa5b0}
-.play{background:#3c2d18;color:#ffe2a0;border:1px solid #8c6938;border-radius:7px;padding:9px;cursor:pointer}
-.promo{margin:0 6% 35px;padding:25px;border:1px solid #4d3b23;border-radius:12px;background:#211b19}
-.promo p{color:#bcb6bf;line-height:1.6}
-footer{padding:25px 6%;border-top:1px solid #302d35;color:#aaa5b0;font-size:12px}
-.overlay{position:fixed;inset:0;background:#000c;display:grid;place-items:center;padding:15px;z-index:5}
-.overlay[hidden]{display:none}
-.dialog{width:min(100%,370px);background:#1b1a20;border:1px solid #66502e;border-radius:16px;padding:25px;text-align:center;position:relative}
-.close{position:absolute;right:12px;top:10px;background:none;color:white;border:0;font-size:27px;cursor:pointer}
-.emoji{font-size:45px}
-.reels{display:flex;justify-content:center;gap:9px;padding:14px;background:#e8ddc3;border-radius:8px}
-.reels span{background:#fff8e9;color:#a42a2a;font-size:35px;font-weight:bold;padding:12px;border-radius:6px;min-width:65px}
-.dialog p{color:#bbb5c0}
-.dialog b{color:var(--gold)}
-.dialog .btn{width:100%}
-@media(max-width:800px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:560px){header{padding:15px}.hero{padding:38px 22px}main{padding:25px 14px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.art{height:115px}.info{padding:9px}.info h3{font-size:11px}.play{font-size:11px;padding:8px}.promo{margin:0 14px 25px;padding:20px}.heading input{width:100%}}
+  :root {
+    --bg: #0a0908;
+    --bg-alt: #12100d;
+    --card: #1a1714;
+    --gold: #d4af37;
+    --gold-hover: #fce181;
+    --text: #f5f2eb;
+    --muted: #a39c8e;
+    --border: rgba(212, 175, 55, 0.2);
+    --font-head: 'Playfair Display', serif;
+    --font-body: 'Montserrat', sans-serif;
+  }
+
+  [data-theme="light"] {
+    --bg: #fdfbf7;
+    --bg-alt: #f4efe6;
+    --card: #ffffff;
+    --gold: #b8860b;
+    --gold-hover: #8b6508;
+    --text: #1a1714;
+    --muted: #665f52;
+    --border: rgba(184, 134, 11, 0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    transition: background 0.3s, color 0.3s;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  
+  /* NAVBAR */
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 5%;
+    background: rgba(10, 9, 8, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+  [data-theme="light"] nav { background: rgba(253, 251, 247, 0.85); }
+  
+  .logo { font-family: var(--font-head); font-size: 1.6rem; font-weight: 700; letter-spacing: 1px; }
+  .logo span { color: var(--gold); font-style: italic; }
+  
+  .nav-links { display: flex; gap: 30px; list-style: none; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; }
+  .nav-links a { transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  
+  .nav-actions { display: flex; gap: 15px; align-items: center; }
+  
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 12px 28px; border-radius: 4px; font-family: var(--font-body);
+    font-weight: 500; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;
+    cursor: pointer; border: none; transition: all 0.3s;
+  }
+  .btn-gold { background: var(--gold); color: #0a0908; }
+  .btn-gold:hover { background: var(--gold-hover); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); }
+  .btn-outline { border: 1px solid var(--gold); color: var(--gold); background: transparent; }
+  .btn-outline:hover { background: var(--gold); color: #0a0908; }
+  .theme-toggle { background: none; border: none; color: var(--text); font-size: 1.2rem; cursor: pointer; }
+
+  /* HERO */
+  .hero {
+    height: 100vh; display: flex; align-items: center; justify-content: center;
+    text-align: center; position: relative; padding: 0 20px;
+    background: linear-gradient(rgba(10,9,8,0.6), rgba(10,9,8,0.8)), url('https://images.unsplash.com/photo-1542314831-c6a4d14b8a1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+  }
+  [data-theme="light"] .hero { background: linear-gradient(rgba(253,251,247,0.6), rgba(253,251,247,0.8)), url('https://images.unsplash.com/photo-1542314831-c6a4d14b8a1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover; }
+  
+  .hero-content { max-width: 800px; animation: fadeUp 1s ease; }
+  .hero-subtitle { color: var(--gold); text-transform: uppercase; letter-spacing: 4px; font-size: 0.9rem; margin-bottom: 20px; }
+  .hero h1 { font-family: var(--font-head); font-size: clamp(3rem, 6vw, 5rem); line-height: 1.1; margin-bottom: 20px; }
+  .hero p { font-size: 1.1rem; color: var(--muted); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* VIP SECTION */
+  .section-title { text-align: center; margin-bottom: 60px; }
+  .section-title h2 { font-family: var(--font-head); font-size: 2.5rem; margin-bottom: 10px; }
+  .section-title p { color: var(--muted); font-size: 1rem; }
+  
+  .vip-section { padding: 100px 5%; background: var(--bg-alt); }
+  .vip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+  .vip-card {
+    background: var(--card); padding: 40px 30px; border-radius: 8px;
+    border: 1px solid var(--border); text-align: center; transition: all 0.4s;
+  }
+  .vip-card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+  .vip-card i { font-size: 2.5rem; color: var(--gold); margin-bottom: 20px; display: block; }
+  .vip-card h3 { font-family: var(--font-head); font-size: 1.4rem; margin-bottom: 15px; }
+  .vip-card p { color: var(--muted); font-size: 0.9rem; }
+
+  /* ROOMS */
+  .rooms-section { padding: 100px 5%; max-width: 1200px; margin: 0 auto; }
+  .rooms-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+  
+  .room-card {
+    background: var(--card); border-radius: 8px; overflow: hidden;
+    border: 1px solid var(--border); transition: all 0.4s; display: flex; flex-direction: column;
+  }
+  .room-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+  
+  .room-img { height: 250px; position: relative; overflow: hidden; }
+  .room-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+  .room-card:hover .room-img img { transform: scale(1.05); }
+  .room-badge {
+    position: absolute; top: 15px; right: 15px;
+    background: var(--gold); color: #0a0908; padding: 5px 15px;
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+  }
+  
+  .room-info { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
+  .room-info h3 { font-family: var(--font-head); font-size: 1.6rem; margin-bottom: 10px; }
+  .room-info p { color: var(--muted); font-size: 0.9rem; margin-bottom: 20px; flex-grow: 1; }
+  .room-price { font-size: 1.4rem; font-weight: 600; margin-bottom: 20px; }
+  .room-price span { font-size: 0.9rem; color: var(--muted); font-weight: 400; }
+
+  /* FOOTER */
+  footer { background: var(--bg-alt); padding: 60px 5% 30px; border-top: 1px solid var(--border); text-align: center; }
+  .footer-content { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+  .footer-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; color: var(--muted); font-size: 0.9rem; }
+  .footer-links a:hover { color: var(--gold); }
+  .copyright { margin-top: 30px; font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 20px; width: 100%; }
+
+  /* MODALS (AUTH & BOOKING) */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
+    display: flex; align-items: center; justify-content: center; z-index: 2000;
+    opacity: 0; pointer-events: none; transition: all 0.3s;
+  }
+  .modal-overlay.active { opacity: 1; pointer-events: all; }
+  .modal {
+    background: var(--card); border: 1px solid var(--gold); border-radius: 12px;
+    padding: 40px; width: 100%; max-width: 450px; position: relative;
+    transform: translateY(20px); transition: all 0.3s;
+  }
+  .modal-overlay.active .modal { transform: translateY(0); }
+  .modal-close { position: absolute; top: 15px; right: 20px; background: none; border: none; color: var(--muted); font-size: 1.5rem; cursor: pointer; }
+  .modal-close:hover { color: var(--gold); }
+  .modal h2 { font-family: var(--font-head); font-size: 2rem; margin-bottom: 10px; text-align: center; }
+  .modal p.subtitle { text-align: center; color: var(--muted); margin-bottom: 30px; font-size: 0.9rem; }
+  
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; }
+  .form-group input, .form-group select {
+    width: 100%; padding: 12px 15px; background: var(--bg); border: 1px solid var(--border);
+    color: var(--text); border-radius: 4px; font-family: var(--font-body); outline: none; transition: border 0.3s;
+  }
+  .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
+  .modal .btn { width: 100%; margin-top: 10px; }
+  .modal-switch { text-align: center; margin-top: 20px; font-size: 0.9rem; color: var(--muted); }
+  .modal-switch a { color: var(--gold); cursor: pointer; font-weight: 500; }
+  
+  .msg { padding: 10px; border-radius: 4px; font-size: 0.85rem; text-align: center; margin-bottom: 15px; display: none; }
+  .msg.error { display: block; background: rgba(220, 53, 69, 0.1); color: #ff6b6b; border: 1px solid rgba(220, 53, 69, 0.3); }
+  .msg.success { display: block; background: rgba(40, 167, 69, 0.1); color: #51cf66; border: 1px solid rgba(40, 167, 69, 0.3); }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hero h1 { font-size: 2.5rem; }
+    .modal { padding: 30px 20px; }
+  }
 </style>
 </head>
 <body>
 
-<header>
-<a class="logo" href="#">edirn<span>bet</span></a>
-<select id="lang" aria-label="Dil">
-<option value="tr">TR</option>
-<option value="de">DE</option>
-<option value="en">EN</option>
-</select>
+<nav>
+  <div class="logo">Edirne <span>22</span> Palace</div>
+  <ul class="nav-links">
+    <li><a href="#vip">VIP Hizmetler</a></li>
+    <li><a href="#odalar">Odalar & Süitler</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="theme-toggle" onclick="toggleTheme()" title="Tema Değiştir">🌗</button>
+    <span id="userDisplay" style="font-size:0.85rem; color:var(--gold); display:none; margin-right:10px;"></span>
+    <button class="btn btn-outline" id="authBtn" onclick="openModal('authModal')">Giriş Yap</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-subtitle">Edirne'nin Kalbinde Lüks</div>
+    <h1>Edirne <span style="color:var(--gold); font-style:italic;">22</span> Palace</h1>
+    <p>Tarihi dokusu ve modern konforuyla, VIP misafirlerine özel hizmetler sunan butik otelimize hoş geldiniz.</p>
+    <button class="btn btn-gold" onclick="requireAuth('bookingModal')">Hemen Rezervasyon Yap</button>
+  </div>
 </header>
 
-<div class="notice" id="notice">DEMO MODU — Gerçek para ve ödemeler kapalıdır.</div>
-
-<section class="hero">
-<small>EDİRN BET DEMO LOBİSİ</small>
-<h1 id="heroTitle">Senin oyunun.<br>Senin anın.</h1>
-<p id="heroText">Edirnbet oyun dünyasını sanal demo kredileriyle keşfet.</p>
-<a class="btn" href="#games" id="explore">Oyunları keşfet ↓</a>
+<section class="vip-section" id="vip">
+  <div class="section-title">
+    <h2>VIP Ayrıcalıklar</h2>
+    <p>Konaklamanızı unutulmaz kılmak için tasarlandı.</p>
+  </div>
+  <div class="vip-grid">
+    <div class="vip-card">
+      <i>👑</i>
+      <h3>Özel Karşılama</h3>
+      <p>Havalimanından VIP araçla transfer ve lobide kişisel karşılama.</p>
+    </div>
+    <div class="vip-card">
+      <i>🛎️</i>
+      <h3>7/24 Butler</h3>
+      <p>Günün her saati size özel atanmış kişisel asistan hizmeti.</p>
+    </div>
+    <div class="vip-card">
+      <i>🍾</i>
+      <h3>Oda Servisi</h3>
+      <p>Gurme mutfağımızdan özel menülerle, odanızda kesintisiz servis.</p>
+    </div>
+    <div class="vip-card">
+      <i>💆</i>
+      <h3>Spa & Hamam</h3>
+      <p>Yalnızca VIP misafirlere özel, geleneksel Türk hamamı ve spa süiti.</p>
+    </div>
+  </div>
 </section>
 
-<main id="games">
-<div class="heading">
-<h2 id="gamesTitle">Slot lobisi</h2>
-<input id="search" placeholder="Oyun ara...">
-</div>
-<nav id="filters">
-<button class="active" data-cat="all">Tümü</button>
-<button data-cat="popular">Popüler</button>
-<button data-cat="classic">Klasikler</button>
-<button data-cat="adventure">Macera</button>
-</nav>
-<div id="grid" class="grid"></div>
-</main>
+<section class="rooms-section" id="odalar">
+  <div class="section-title">
+    <h2>Odalar & Süitler</h2>
+    <p>Her detayı özenle düşünülmüş konaklama seçeneklerimiz.</p>
+  </div>
+  <div class="rooms-grid">
+    
+    <div class="room-card">
+      <div class="room-img">
+        <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Klasik Oda">
+      </div>
+      <div class="room-info">
+        <h3>Klasik Oda</h3>
+        <p>Şehir manzaralı, 28 m² genişliğinde, çift kişilik yatak ve premium banyo ürünleri.</p>
+        <div class="room-price">2.500 ₺ <span>/ gece</span></div>
+        <button class="btn btn-outline" onclick="requireAuth('bookingModal', 'Klasik Oda')">Rezervasyon</button>
+      </div>
+    </div>
 
-<section class="promo">
-<h2 id="promoTitle">Oyna, keşfet, dene.</h2>
-<p id="promoText">Bu demo yalnızca sanal kredi kullanır. Para yatırma ve çekme özelliği yoktur.</p>
+    <div class="room-card">
+      <div class="room-img">
+        <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Deluxe Oda">
+      </div>
+      <div class="room-info">
+        <h3>Deluxe Oda</h3>
+        <p>Geniş balkon, 42 m², oturma alanı ve panoramik Edirne manzarası.</p>
+        <div class="room-price">4.200 ₺ <span>/ gece</span></div>
+        <button class="btn btn-outline" onclick="requireAuth('bookingModal', 'Deluxe Oda')">Rezervasyon</button>
+      </div>
+    </div>
+
+    <div class="room-card">
+      <div class="room-img">
+        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Kraliyet Süiti">
+        <div class="room-badge">VIP</div>
+      </div>
+      <div class="room-info">
+        <h3>Kraliyet Süiti</h3>
+        <p>180° tarihi şehir manzarası, özel butler, jakuzi ve VIP lounge erişimi.</p>
+        <div class="room-price">9.800 ₺ <span>/ gece</span></div>
+        <button class="btn btn-gold" onclick="requireAuth('bookingModal', 'Kraliyet Süiti')">VIP Rezervasyon</button>
+      </div>
+    </div>
+
+  </div>
 </section>
 
-<footer>Edirnbet Demo · Konsept sürüm · DE / TR / EN</footer>
+<footer>
+  <div class="footer-content">
+    <div class="logo">Edirne <span>22</span> Palace</div>
+    <div class="footer-links">
+      <a href="#">Hakkımızda</a>
+      <a href="#">İletişim: info@edirne22palace.com</a>
+      <a href="#">+90 284 123 45 67</a>
+    </div>
+    <div class="copyright">
+      © 2025 Edirne 22 Palace. Tüm hakları saklıdır.
+    </div>
+  </div>
+</footer>
 
-<div id="modal" class="overlay" hidden>
-<div class="dialog">
-<button id="close" class="close" aria-label="Kapat">×</button>
-<div id="emoji" class="emoji">🎰</div>
-<h2 id="gameTitle">Golden Seven</h2>
-<div id="reels" class="reels"><span>7</span><span>★</span><span>7</span></div>
-<p><span id="balanceLabel">Demo bakiyesi</span>: <b id="balance">1000</b></p>
-<button id="spin" class="btn">Çevir · 10 kredi</button>
-<p id="result" aria-live="polite"></p>
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('authModal')">×</button>
+    <h2 id="authTitle">VIP Girişi</h2>
+    <p class="subtitle" id="authSubtitle">Ayrıcalıklardan yararlanmak için giriş yapın.</p>
+    
+    <div class="msg" id="authMsg"></div>
+
+    <div class="form-group" id="nameGroup" style="display:none;">
+      <label>Ad Soyad</label>
+      <input type="text" id="authName" placeholder="Adınız Soyadınız">
+    </div>
+    <div class="form-group">
+      <label>E-posta</label>
+      <input type="email" id="authEmail" placeholder="ornek@mail.com">
+    </div>
+    <div class="form-group">
+      <label>Şifre</label>
+      <input type="password" id="authPass" placeholder="••••••••">
+    </div>
+    <button class="btn btn-gold" id="authSubmitBtn" onclick="handleAuth()">Giriş Yap</button>
+    
+    <div class="modal-switch" id="authSwitch">
+      Hesabınız yok mu? <a onclick="toggleAuthMode()">Üye Olun</a>
+    </div>
+  </div>
 </div>
+
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="bookingModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('bookingModal')">×</button>
+    <h2>Rezervasyon Talebi</h2>
+    <p class="subtitle" id="bookingRoomName">Oda seçimi</p>
+
+    <div class="msg" id="bookingMsg"></div>
+
+    <div class="form-group">
+      <label>Giriş Tarihi</label>
+      <input type="date" id="bookCheckIn" required>
+    </div>
+    <div class="form-group">
+      <label>Çıkış Tarihi</label>
+      <input type="date" id="bookCheckOut" required>
+    </div>
+    <div class="form-group">
+      <label>Kişi Sayısı</label>
+      <select id="bookGuests">
+        <option value="1">1 Yetişkin</option>
+        <option value="2" selected>2 Yetişkin</option>
+        <option value="3">3 Yetişkin</option>
+        <option value="4">4 Yetişkin</option>
+      </select>
+    </div>
+    <button class="btn btn-gold" onclick="submitBooking()">Rezervasyonu Tamamla</button>
+  </div>
 </div>
 
 <script>
-const games=[
-{name:"Golden Seven",emoji:"🎰",cat:"popular"},
-{name:"Dragon Fortune",emoji:"🐉",cat:"adventure"},
-{name:"Lucky Crown",emoji:"👑",cat:"popular"},
-{name:"Ocean Treasure",emoji:"🌊",cat:"adventure"},
-{name:"Fruit Party",emoji:"🍒",cat:"classic"},
-{name:"Moon Temple",emoji:"🌙",cat:"adventure"},
-{name:"Diamond Spin",emoji:"💎",cat:"popular"},
-{name:"Classic Bell",emoji:"🔔",cat:"classic"},
-{name:"Wild Safari",emoji:"🦁",cat:"adventure"},
-{name:"Star Burst",emoji:"⭐",cat:"popular"},
-{name:"Cherry Gold",emoji:"🍒",cat:"classic"},
-{name:"Mystic Forest",emoji:"🌲",cat:"adventure"}
-];
+  // Tema Değiştirme
+  function toggleTheme() {
+    const body = document.body;
+    if (body.getAttribute('data-theme') === 'light') {
+      body.removeAttribute('data-theme');
+    } else {
+      body.setAttribute('data-theme', 'light');
+    }
+  }
 
-const translations={
-tr:{title:"Slot lobisi",search:"Oyun ara...",play:"Oyna",balance:"Demo bakiyesi",spin:"Çevir · 10 kredi",win:"Demo kazancı: +100 kredi!",lose:"Bu sefer kazanamadın.",notice:"DEMO MODU — Gerçek para ve ödemeler kapalıdır.",hero:"Senin oyunun. Senin anın.",text:"Edirnbet oyun dünyasını sanal demo kredileriyle keşfet.",explore:"Oyunları keşfet ↓",all:"Tümü",popular:"Popüler",classic:"Klasikler",adventure:"Macera"},
-de:{title:"Slot-Lobby",search:"Spiele suchen...",play:"Spielen",balance:"Demo-Guthaben",spin:"Drehen · 10 Credits",win:"Demo-Gewinn: +100 Credits!",lose:"Diesmal kein Gewinn.",notice:"DEMO-MODUS — Kein Echtgeld, keine Zahlungen.",hero:"Dein Spiel. Dein Moment.",text:"Entdecke Edirnbet mit virtuellen Demo-Credits.",explore:"Spiele entdecken ↓",all:"Alle Spiele",popular:"Beliebt",classic:"Klassiker",adventure:"Abenteuer"},
-en:{title:"Slot Lobby",search:"Search games...",play:"Play",balance:"Demo balance",spin:"Spin · 10 credits",win:"Demo win: +100 credits!",lose:"No win this time.",notice:"DEMO MODE — No real money or payments.",hero:"Your game. Your moment.",text:"Explore Edirnbet with virtual demo credits.",explore:"Explore games ↓",all:"All games",popular:"Popular",classic:"Classics",adventure:"Adventure"}
-};
+  // Modal Kontrolü
+  function openModal(id) {
+    document.getElementById(id).classList.add('active');
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
+    document.getElementById('authMsg').className = 'msg';
+    document.getElementById('bookingMsg').className = 'msg';
+  }
 
-let lang="tr",category="all",balance=1000,currentGame=games[0];
-const $=s=>document.querySelector(s);
-const words=()=>translations[lang];
+  // Üyelik Sistemi (localStorage)
+  let isLoginMode = true;
+  let currentUser = localStorage.getItem('e22_user') || null;
 
-function render(){
-const query=$("#search").value.toLowerCase();
-const list=games.filter(g=>(category==="all"||g.cat===category)&&g.name.toLowerCase().includes(query));
-$("#grid").innerHTML=list.map(g=>`
-<article class="card">
-<div class="art">${g.emoji}</div>
-<div class="info">
-<div><h3>${g.name}</h3><small>Edirnbet Demo</small></div>
-<button class="play" data-game="${g.name}">${words().play}</button>
-</div></article>`).join("");
-document.querySelectorAll("[data-game]").forEach(b=>{
-b.onclick=()=>openGame(games.find(g=>g.name===b.dataset.game));
-});
-}
+  function updateNav() {
+    const btn = document.getElementById('authBtn');
+    const display = document.getElementById('userDisplay');
+    if (currentUser) {
+      const users = JSON.parse(localStorage.getItem('e22_users') || '{}');
+      const name = users[currentUser]?.name || currentUser;
+      display.style.display = 'inline';
+      display.innerHTML = `👑 VIP: ${name.split(' ')[0]}`;
+      btn.textContent = 'Çıkış';
+      btn.onclick = logout;
+    } else {
+      display.style.display = 'none';
+      btn.textContent = 'Giriş Yap';
+      btn.onclick = () => openModal('authModal');
+    }
+  }
 
-function openGame(game){
-currentGame=game;
-$("#gameTitle").textContent=game.name;
-$("#emoji").textContent=game.emoji;
-$("#result").textContent="";
-$("#modal").hidden=false;
-updateBalance();
-}
+  function toggleAuthMode() {
+    isLoginMode = !isLoginMode;
+    document.getElementById('authTitle').textContent = isLoginMode ? 'VIP Girişi' : 'Üye Ol';
+    document.getElementById('authSubtitle').textContent = isLoginMode ? 'Ayrıcalıklardan yararlanmak için giriş yapın.' : 'Ücretsiz üye olun, VIP ayrıcalıkları yakalayın.';
+    document.getElementById('nameGroup').style.display = isLoginMode ? 'none' : 'block';
+    document.getElementById('authSubmitBtn').textContent = isLoginMode ? 'Giriş Yap' : 'Kayıt Ol';
+    document.getElementById('authSwitch').innerHTML = isLoginMode 
+      ? 'Hesabınız yok mu? <a onclick="toggleAuthMode()">Üye Olun</a>'
+      : 'Zaten üye misiniz? <a onclick="toggleAuthMode()">Giriş Yapın</a>';
+    document.getElementById('authMsg').className = 'msg';
+  }
 
-function updateBalance(){
-$("#balance").textContent=balance;
-$("#balanceLabel").textContent=words().balance;
-$("#spin").textContent=words().spin;
-}
+  function handleAuth() {
+    const email = document.getElementById('authEmail').value.trim().toLowerCase();
+    const pass = document.getElementById('authPass').value;
+    const name = document.getElementById('authName').value.trim();
+    const msg = document.getElementById('authMsg');
 
-$("#spin").onclick=()=>{
-if(balance<10){
-$("#result").textContent="Yeterli demo kredin yok.";
-return;
-}
-balance-=10;
-const symbols=["7","★","♦","🍒","🔔"];
-const reels=Array.from({length:3},()=>symbols[Math.floor(Math.random()*symbols.length)]);
-$("#reels").innerHTML=reels.map(s=>`<span>${s}</span>`).join("");
-if(reels.every(s=>s===reels[0])){
-balance+=100;
-$("#result").textContent=words().win;
-}else{
-$("#result").textContent=words().lose;
-}
-updateBalance();
-};
+    if (!email || !pass) return showMsg(msg, 'Lütfen e-posta ve şifrenizi girin.', 'error');
+    if (!isLoginMode && !name) return showMsg(msg, 'Lütfen adınızı ve soyadınızı girin.', 'error');
 
-$("#close").onclick=()=>$("#modal").hidden=true;
-$("#modal").onclick=e=>{if(e.target===$("#modal"))$("#modal").hidden=true};
-$("#search").oninput=render;
+    let users = JSON.parse(localStorage.getItem('e22_users') || '{}');
 
-$("#filters").onclick=e=>{
-if(!e.target.dataset.cat)return;
-category=e.target.dataset.cat;
-document.querySelectorAll("[data-cat]").forEach(b=>b.classList.toggle("active",b===e.target));
-render();
-};
+    if (isLoginMode) {
+      if (!users[email] || users[email].pass !== pass) return showMsg(msg, 'E-posta veya şifre hatalı.', 'error');
+      currentUser = email;
+      localStorage.setItem('e22_user', email);
+      showMsg(msg, 'Giriş başarılı, yönlendiriliyorsunuz...', 'success');
+    } else {
+      if (users[email]) return showMsg(msg, 'Bu e-posta ile zaten bir hesap var.', 'error');
+      users[email] = { name, pass };
+      localStorage.setItem('e22_users', JSON.stringify(users));
+      currentUser = email;
+      localStorage.setItem('e22_user', email);
+      showMsg(msg, 'Üyeliğiniz oluşturuldu, VIP oldunuz!', 'success');
+    }
 
-$("#lang").onchange=e=>{
-lang=e.target.value;
-const w=words();
-document.documentElement.lang=lang;
-$("#gamesTitle").textContent=w.title;
-$("#search").placeholder=w.search;
-$("#notice").textContent=w.notice;
-$("#heroTitle").textContent=w.hero;
-$("#heroText").textContent=w.text;
-$("#explore").textContent=w.explore;
-const cats={all:w.all,popular:w.popular,classic:w.classic,adventure:w.adventure};
-document.querySelectorAll("[data-cat]").forEach(b=>b.textContent=cats[b.dataset.cat]);
-render();
-updateBalance();
-};
+    setTimeout(() => {
+      closeModal('authModal');
+      updateNav();
+      msg.className = 'msg';
+    }, 1500);
+  }
 
-render();
-updateBalance();
-</script>
-</body>
-                                                                         </html>
- 
+  function logout() {
+    currentUser = null;
+    localStorage.removeItem('e22_user');
+    updateNav();
+    if(document.getElementById('bookingModal').classList.contains('active')) closeModal('bookingModal');
+  }
+
+  function showMsg(el, text, type) {
+    el.textContent = text;
+    el.className = 'msg ' + type;
+  }
+
+  // Rezervasyon Sistemi
+  let pendingRoom = '';
+
+  function requireAuth(modalToOpen, roomName = '') {
+    if (!currentUser) {
+      openModal('authModal');
+      return;
+    }
+    if (modalToOpen === 'bookingModal') {
+      pendingRoom = roomName || 'Genel Rezervasyon';
+      document.getElementById('bookingRoomName').textContent = `${pendingRoom} için tarih seçin`;
+      
+      // Bugünün tarihini varsayılan yap
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('bookCheckIn').min = today;
+      document.getElementById('bookCheckOut').min = today;
+
+      openModal('bookingModal');
+    }
+  }
+
+  function submitBooking() {
+    const inDate = document.getElementById('bookCheckIn').value;
+    const outDate = document.getElementById('bookCheckOut').value;
+    const msg = document.getElementById('book
