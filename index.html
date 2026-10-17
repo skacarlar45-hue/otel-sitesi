@@ -9,8 +9,7 @@
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f2f5;color:#222}
 .top-bar{background:#f7c600;color:#111;text-align:center;padding:7px;font-size:13px;font-weight:600}
 header{background:#fff;border-bottom:1px solid #e0e0e0;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-.logo{font-size:26px;font-weight:800;letter-spacing:-0.5px}
-.logo span{color:#f7c600}
+.logo{font-size:26px;font-weight:800}.logo span{color:#f7c600}
 .header-right{display:flex;gap:10px}
 .btn{padding:8px 16px;border-radius:6px;font-weight:600;cursor:pointer;border:none;font-size:14px}
 .btn-outline{background:#fff;border:1px solid #ccc;color:#333}
@@ -32,20 +31,31 @@ header{background:#fff;border-bottom:1px solid #e0e0e0;padding:12px 20px;display
 .slot-card:hover{transform:translateY(-6px);box-shadow:0 12px 28px rgba(0,0,0,.3)}
 .slot-card img{width:100%;height:145px;object-fit:cover;display:block}
 .slot-info{padding:12px;color:#fff;background:#1a1a2e}
-.slot-name{font-size:14px;font-weight:600;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.slot-name{font-size:14px;font-weight:600;margin-bottom:3px}
 .slot-provider{font-size:11px;color:#aaa}
-.play-btn{position:absolute;top:55px;left:50%;transform:translateX(-50%);background:#f7c600;color:#111;padding:8px 24px;border-radius:20px;font-weight:700;font-size:13px;opacity:0;transition:.2s;border:none;cursor:pointer;z-index:2;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.play-btn{position:absolute;top:55px;left:50%;transform:translateX(-50%);background:#f7c600;color:#111;padding:8px 24px;border-radius:20px;font-weight:700;font-size:13px;opacity:0;transition:.2s;border:none;cursor:pointer;z-index:2}
 .slot-card:hover .play-btn{opacity:1}
 .demo-box{background:linear-gradient(145deg,#1a1a2e,#16213e);border-radius:16px;padding:28px;margin-bottom:28px;text-align:center;color:#fff;border:2px solid #f7c600}
-.demo-title{font-size:24px;color:#f7c600;margin-bottom:12px;font-weight:800;letter-spacing:1px}
+.demo-title{font-size:24px;color:#f7c600;margin-bottom:12px;font-weight:800}
 .balance{font-size:16px;margin-bottom:18px;color:#ccc}.balance b{color:#f7c600}
 .reels{display:flex;justify-content:center;gap:14px;margin:20px 0}
-.reel{width:95px;height:95px;background:#0d0d1a;border:3px solid #f7c600;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:46px;box-shadow:inset 0 0 15px rgba(0,0,0,.6)}
-.spin-btn{background:linear-gradient(135deg,#f7c600,#e6b800);color:#111;border:none;padding:13px 48px;font-size:17px;font-weight:800;border-radius:30px;cursor:pointer;margin-top:8px;box-shadow:0 5px 18px rgba(247,198,0,.45)}
-.spin-btn:hover{transform:scale(1.04)}.spin-btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.reel{width:95px;height:95px;background:#0d0d1a;border:3px solid #f7c600;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:46px}
+.spin-btn{background:linear-gradient(135deg,#f7c600,#e6b800);color:#111;border:none;padding:13px 48px;font-size:17px;font-weight:800;border-radius:30px;cursor:pointer;margin-top:8px}
+.spin-btn:hover{transform:scale(1.04)}.spin-btn:disabled{opacity:.55;cursor:not-allowed}
 .result{margin-top:16px;font-size:18px;min-height:26px;font-weight:600}
 footer{background:#1a1a2e;color:#999;text-align:center;padding:22px;font-size:13px;margin-top:30px}
-@media(max-width:850px){.sidebar{display:none}.slots-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}}
+
+/* Modal stilleri */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:1000}
+.modal-overlay.active{display:flex}
+.modal{background:#fff;border-radius:12px;width:90%;max-width:400px;padding:30px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.modal h2{font-size:22px;margin-bottom:20px;text-align:center}
+.modal .close{position:absolute;top:12px;right:16px;font-size:24px;cursor:pointer;color:#999}
+.modal input{width:100%;padding:12px 14px;margin-bottom:14px;border:1px solid #ddd;border-radius:8px;font-size:15px}
+.modal button[type="submit"]{width:100%;padding:13px;background:#f7c600;border:none;border-radius:8px;font-weight:700;font-size:16px;cursor:pointer;margin-top:8px}
+.modal .switch{text-align:center;margin-top:16px;font-size:14px;color:#666}
+.modal .switch a{color:#f7c600;font-weight:600;cursor:pointer;text-decoration:none}
+@media(max-width:850px){.sidebar{display:none}}
 </style>
 </head>
 <body>
@@ -53,9 +63,8 @@ footer{background:#1a1a2e;color:#999;text-align:center;padding:22px;font-size:13
 <header>
   <div class="logo">edirne<span>bet</span></div>
   <div class="header-right">
-    <button class="btn btn-outline">Canlı Destek</button>
-    <button class="btn btn-outline">Giriş</button>
-    <button class="btn btn-yellow">Üye Ol</button>
+    <button class="btn btn-outline" onclick="openModal('login')">Giriş</button>
+    <button class="btn btn-yellow" onclick="openModal('register')">Üye Ol</button>
   </div>
 </header>
 <nav class="main-nav">
@@ -99,92 +108,130 @@ footer{background:#1a1a2e;color:#999;text-align:center;padding:22px;font-size:13
       <h2>🎰 Popüler Slot Oyunları</h2>
       <button class="btn btn-outline" style="font-size:13px">Tüm Oyunlar →</button>
     </div>
-    <div class="slots-grid">
-      <div class="slot-card">
-        <img src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=400&h=300&fit=crop" alt="Sweet Bonanza">
-        <button class="play-btn">Oyna</button>
-        <div class="slot-info"><div class="slot-name">Sweet Bonanza</div><div class="slot-provider">Pragmatic Play</div></div>
-      </div>
-      <div class="slot-card">
-        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop" alt="Gates of Olympus">
-        <button class="play-btn">Oyna</button>
-        <div class="slot-info"><div class="slot-name">Gates of Olympus</div><div class="slot-provider">Pragmatic Play</div></div>
-      </div>
-      <div class="slot-card">
-        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop" alt="Big Bass">
-        <button class="play-btn">Oyna</button>
-        <div class="slot-info"><div class="slot-name">Big Bass Bonanza</div><div class="slot-provider">Pragmatic Play</div></div>
-      </div>
-      <div class="slot-card">
-        <img src="https://images.unsplash.com/photo-1606166186014-e14e0bc5090b?w=400&h=300&fit=crop" alt="Book of Dead">
-        <button class="play-btn">Oyna</button>
-        <div class="slot-info"><div class="slot-name">Book of Dead</div><div class="slot-provider">Play'n GO</div></div>
-      </div>
-      <div class="slot-card">
-        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop" alt="Starlight Princess">
-        <button class="play-btn">Oyna</button>
-        <div class="slot-info"><div class="slot-name">Starlight Princess</div><div class="slot-provider">Pragmatic Play</div></div>
-      </div>
-      <div class="slot-card">
-        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop" alt="Sugar Rush">
-        <button class="play-btn">Oyna</button>
-        <div class="slot-info"><div class="slot-name">Sugar Rush</div><div class="slot-provider">Pragmatic Play</div></div>
-      </div>
-      <div class="slot-card">
-        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=300&fit=crop" alt="Fruit Party">
-        <button class="play-btn">Oyna</button>
-        <div class="slot-info"><div class="slot-name">Fruit Party</div><div class="slot-provider">Pragmatic Play</div></div>
-      </div>
-      <div class="slot-card">
-        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop" alt="Aviator">
-        <button class="play-btn">Oyna</button>
-        <div class="slot-info"><div class="slot-name">Aviator</div><div class="slot-provider">Spribe</div></div>
-      </div>
-      <div class="slot-card">
-        <img src="https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=400&h=300&fit=crop" alt="Lucky 7">
-        <button class="play-btn">Oyna</button>
-        <div class="slot-info"><div class="slot-name">Lucky 7</div><div class="slot-provider">EGT</div></div>
-      </div>
-      <div class="slot-card">
-        <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=300&fit=crop" alt="Diamond Strike">
-        <button class="play-btn">Oyna</button>
-        <div class="slot-info"><div class="slot-name">Diamond Strike</div><div class="slot-provider">Pragmatic Play</div></div>
-      </div>
-      <div class="slot-card">
-        <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=400&h=300&fit=crop" alt="Fire Joker">
-        <button class="play-btn">Oyna</button>
-        <div class="slot-info"><div class="slot-name">Fire Joker</div><div class="slot-provider">Play'n GO</div></div>
-      </div>
-      <div class="slot-card">
-        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=300&fit=crop" alt="Wolf Gold">
-        <button class="play-btn">Oyna</button>
-        <div class="slot-info"><div class="slot-name">Wolf Gold</div><div class="slot-provider">Pragmatic Play</div></div>
-      </div>
+    <div class="slots-grid" id="slotsGrid">
+      <!-- Slot kartları JS ile doldurulacak veya aynı kalacak -->
     </div>
   </main>
 </div>
 <footer>© 2026 edirnebet • Sadece 18 yaş ve üzeri • Bu bir demo sitedir.</footer>
+
+<!-- Giriş Modal -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2>Giriş Yap</h2>
+    <form onsubmit="event.preventDefault(); alert('Demo: Giriş başarılı (gerçek sistem yok)'); closeModal();">
+      <input type="text" placeholder="Kullanıcı adı veya E-posta" required>
+      <input type="password" placeholder="Şifre" required>
+      <button type="submit">Giriş Yap</button>
+    </form>
+    <div class="switch">Hesabın yok mu? <a onclick="switchModal('register')">Üye Ol</a></div>
+  </div>
+</div>
+
+<!-- Üye Ol Modal -->
+<div class="modal-overlay" id="registerModal">
+  <div class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2>Üye Ol</h2>
+    <form onsubmit="event.preventDefault(); alert('Demo: Kayıt başarılı (gerçek sistem yok)'); closeModal();">
+      <input type="text" placeholder="Kullanıcı adı" required>
+      <input type="email" placeholder="E-posta" required>
+      <input type="password" placeholder="Şifre" required>
+      <input type="password" placeholder="Şifre tekrar" required>
+      <button type="submit">Üye Ol</button>
+    </form>
+    <div class="switch">Zaten üye misin? <a onclick="switchModal('login')">Giriş Yap</a></div>
+  </div>
+</div>
+
 <script>
-const symbols=['🍒','🍋','🍊','🍇','🍉','7️⃣','💎','🔔','⭐'];
-let balance=1000;const bet=10;
-function spin(){
-if(balance<bet){document.getElementById('result').textContent='Yetersiz bakiye!';document.getElementById('result').style.color='#ff5555';return;}
-const btn=document.getElementById('spinBtn');btn.disabled=true;document.getElementById('result').textContent='';
-balance-=bet;document.getElementById('balance').textContent=balance;
-let spins=0;const interval=setInterval(()=>{
-document.getElementById('r1').textContent=symbols[Math.floor(Math.random()*symbols.length)];
-document.getElementById('r2').textContent=symbols[Math.floor(Math.random()*symbols.length)];
-document.getElementById('r3').textContent=symbols[Math.floor(Math.random()*symbols.length)];
-spins++;if(spins>18){clearInterval(interval);
-const s1=symbols[Math.floor(Math.random()*symbols.length)];
-const s2=symbols[Math.floor(Math.random()*symbols.length)];
-const s3=symbols[Math.floor(Math.random()*symbols.length)];
-document.getElementById('r1').textContent=s1;document.getElementById('r2').textContent=s2;document.getElementById('r3').textContent=s3;
-let win=0;
-if(s1===s2&&s2===s3){win=bet*15;document.getElementById('result').textContent=`🎉 JACKPOT! +${win} ₺`;document.getElementById('result').style.color='#f7c600';}
-else if(s1===s2||s2===s3||s1===s3){win=bet*3;document.getElementById('result').textContent=`✨ Kazandın! +${win} ₺`;document.getElementById('result').style.color='#4caf50';}
-else{document.getElementById('result').textContent='Tekrar dene...';document.getElementById('result').style.color='#aaa';}
-balance+=win;document.getElementById('balance').textContent=balance;btn.disabled=false;}},70);}
+function openModal(type) {
+  closeModal();
+  document.getElementById(type === 'login' ? 'loginModal' : 'registerModal').classList.add('active');
+}
+function closeModal() {
+  document.getElementById('loginModal').classList.remove('active');
+  document.getElementById('registerModal').classList.remove('active');
+}
+function switchModal(type) {
+  openModal(type);
+}
+
+// Slot kartları (basit)
+const slots = [
+  {name:'Sweet Bonanza', provider:'Pragmatic Play', img:'https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=400&h=300&fit=crop'},
+  {name:'Gates of Olympus', provider:'Pragmatic Play', img:'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop'},
+  {name:'Big Bass Bonanza', provider:'Pragmatic Play', img:'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop'},
+  {name:'Book of Dead', provider:"Play'n GO", img:'https://images.unsplash.com/photo-1606166186014-e14e0bc5090b?w=400&h=300&fit=crop'},
+  {name:'Starlight Princess', provider:'Pragmatic Play', img:'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop'},
+  {name:'Sugar Rush', provider:'Pragmatic Play', img:'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop'},
+  {name:'Fruit Party', provider:'Pragmatic Play', img:'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=300&fit=crop'},
+  {name:'Aviator', provider:'Spribe', img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop'},
+  {name:'Lucky 7', provider:'EGT', img:'https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=400&h=300&fit=crop'},
+  {name:'Diamond Strike', provider:'Pragmatic Play', img:'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=300&fit=crop'},
+  {name:'Fire Joker', provider:"Play'n GO", img:'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=400&h=300&fit=crop'},
+  {name:'Wolf Gold', provider:'Pragmatic Play', img:'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=300&fit=crop'}
+];
+document.getElementById('slotsGrid').innerHTML = slots.map(s => `
+  <div class="slot-card">
+    <img src="\( {s.img}" alt=" \){s.name}">
+    <button class="play-btn">Oyna</button>
+    <div class="slot-info">
+      <div class="slot-name">${s.name}</div>
+      <div class="slot-provider">${s.provider}</div>
+    </div>
+  </div>
+`).join('');
+
+// Slot makinesi
+const symbols = ['🍒','🍋','🍊','🍇','🍉','7️⃣','💎','🔔','⭐'];
+let balance = 1000;
+const bet = 10;
+function spin() {
+  if (balance < bet) {
+    document.getElementById('result').textContent = 'Yetersiz bakiye!';
+    document.getElementById('result').style.color = '#ff5555';
+    return;
+  }
+  const btn = document.getElementById('spinBtn');
+  btn.disabled = true;
+  document.getElementById('result').textContent = '';
+  balance -= bet;
+  document.getElementById('balance').textContent = balance;
+  let spins = 0;
+  const interval = setInterval(() => {
+    document.getElementById('r1').textContent = symbols[Math.floor(Math.random()*symbols.length)];
+    document.getElementById('r2').textContent = symbols[Math.floor(Math.random()*symbols.length)];
+    document.getElementById('r3').textContent = symbols[Math.floor(Math.random()*symbols.length)];
+    spins++;
+    if (spins > 18) {
+      clearInterval(interval);
+      const s1 = symbols[Math.floor(Math.random()*symbols.length)];
+      const s2 = symbols[Math.floor(Math.random()*symbols.length)];
+      const s3 = symbols[Math.floor(Math.random()*symbols.length)];
+      document.getElementById('r1').textContent = s1;
+      document.getElementById('r2').textContent = s2;
+      document.getElementById('r3').textContent = s3;
+      let win = 0;
+      if (s1 === s2 && s2 === s3) {
+        win = bet * 15;
+        document.getElementById('result').textContent = `🎉 JACKPOT! +${win} ₺`;
+        document.getElementById('result').style.color = '#f7c600';
+      } else if (s1 === s2 || s2 === s3 || s1 === s3) {
+        win = bet * 3;
+        document.getElementById('result').textContent = `✨ Kazandın! +${win} ₺`;
+        document.getElementById('result').style.color = '#4caf50';
+      } else {
+        document.getElementById('result').textContent = 'Tekrar dene...';
+        document.getElementById('result').style.color = '#aaa';
+      }
+      balance += win;
+      document.getElementById('balance').textContent = balance;
+      btn.disabled = false;
+    }
+  }, 70);
+}
 </script>
 </body>
-  </html>
+</html>
